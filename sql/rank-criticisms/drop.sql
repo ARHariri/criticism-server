@@ -1,0 +1,1 @@
+drop table rank_criticisms
