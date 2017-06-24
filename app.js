@@ -57,7 +57,7 @@ app.use(function (req, res, next) {
       //Should load user from database
       let curSql = lib.helpers.isTestReq(req) ? sql.test : sql;
       
-      curSql.users.get({username: username})
+      curSql.users.getByUsername({username: username})
         .then((res) => {
           if(res.length === 0)
             req.user = null;
