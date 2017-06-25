@@ -34,7 +34,16 @@ function createOrExist(tableName) {
 function prodTablesCreate() {
   return new Promise((resolve, reject) => {
     createOrExist('users')
-    //     .then(createOrExist('products')) //Add new tables in order of dependency in promise chain
+      .then((res) => createOrExist('subjects'))
+      .then((res) => createOrExist('criticisms'))
+      .then((res) => createOrExist('access_levels'))
+      .then((res) => createOrExist('organ_parts'))
+      .then((res) => createOrExist('tags'))
+      .then((res) => createOrExist('replies'))
+      .then((res) => createOrExist('rank_replies'))
+      .then((res) => createOrExist('rank_criticisms'))
+      .then((res) => createOrExist('tags_criticisms'))
+      .then((res) => adminRowCreate())
       .catch((err) => {
         reject(err);
       });
@@ -46,8 +55,12 @@ function adminRowCreate() {
     let user = new User();
 
     let data = {
+      name: 'admin',
       username: 'admin',
       password: 'admin',
+      email: 'admin@admin.com',
+      access_level: 10,
+      rank: 0
     };
 
     user.insert(data)

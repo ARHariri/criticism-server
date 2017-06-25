@@ -33,16 +33,16 @@ module.exports = {
     test:           sql('db/test.sql'),
   },
   organ_parts: {
-    create:         sql('organ_parts/create.sql'),
-    drop:           sql('organ_parts/drop.sql'),
+    create:         sql('organ-parts/create.sql'),
+    drop:           sql('organ-parts/drop.sql'),
   },
   rank_criticisms: {
     create:         sql('rank-criticisms/create.sql'),
     drop:           sql('rank-criticisms/drop.sql'),
   },
   rank_replies: {
-    create:         sql('rank_replies/create.sql'),
-    drop:           sql('rank_replies/drop.sql'),
+    create:         sql('rank-replies/create.sql'),
+    drop:           sql('rank-replies/drop.sql'),
   },
   replies: {
     create:         sql('replies/create.sql'),
