@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-function apiResponse(className, functionName, adminOnly=false, reqFuncs=[]){
+function apiResponse(className, functionName, tokenNeeded=true, reqFuncs=[]){
   let args = Array.prototype.slice.call(arguments, 4);
   let deepFind = function(obj, pathStr){
     let path = pathStr.split('.');
@@ -21,9 +21,9 @@ function apiResponse(className, functionName, adminOnly=false, reqFuncs=[]){
   return(function(req, res) {
     let user = req.user ? req.user.username : req.user;
     req.test = lib.helpers.isTestReq(req);
-    if(adminOnly && !lib.helpers.adminCheck(user)) {
+    if(tokenNeeded && (req.user === null || req.user === undefined)) {
       res.status(403)
-        .send('Only admin can do this.');
+        .send('Username or token is incorrect');
     }
     else {
       let dynamicArgs = [];
@@ -51,15 +51,13 @@ function apiResponse(className, functionName, adminOnly=false, reqFuncs=[]){
 router.get('/', function(req, res) {
   res.send('respond with a resource');
 });
-//Login API
-router.post('/login', passport.authenticate('local', {}), apiResponse('User', 'afterLogin', false, [ 'user.username']));
-router.post('/loginCheck', apiResponse('User', 'loginCheck', false, ['body.username', 'body.password']));
-router.get('/logout', (req,res)=>{req.logout();res.sendStatus(200)});
-router.get('/validUser',apiResponse('User', 'afterLogin', false, ['user.username']));
+
 //User API
-router.put('/user', apiResponse('User', 'insert', true, ['body']));
-router.get('/user', apiResponse('User', 'select', true));
-router.post('/user/:uid', apiResponse('User', 'update', true, ['params.uid','body']));
-router.delete('/user/:uid', apiResponse('User', 'delete', true, ['params.uid']));
+router.post('/login', apiResponse('User', 'login', false, ['body.username', 'body.password']));
+router.put('/user', apiResponse('User', 'insert', false, ['body']));
+router.delete('/user/:id', apiResponse('User', 'delete', true, ['params.id']));
+router.post('/user/:id', apiResponse('User', 'update', true, ['params.id', 'body']));
+// router.get('/user', apiResponse('User', 'select', true));
+
 
 module.exports = router;

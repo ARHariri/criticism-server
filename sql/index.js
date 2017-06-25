@@ -103,6 +103,22 @@ let tablesWithSqlCreatedByHelpers = [
     idColumn: 'rid',
   },
   {
+    name: 'rank_replies',
+    insert: true,
+    update: true,
+    select: true,
+    delete: true,
+    // idColumn: 'rid',
+  },
+  {
+    name: 'replies',
+    insert: true,
+    update: true,
+    select: true,
+    delete: true,
+    idColumn: 'rid',
+  },
+  {
     name: 'subjects',
     insert: true,
     update: true,

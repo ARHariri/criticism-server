@@ -17,15 +17,56 @@ function sql(file) {
  * Use the same direcoty name for nesting the queries here.
  */
 module.exports = {
+  access_levels: {
+    create:         sql('access-levels/create.sql'),
+    drop:           sql('access-levels/drop.sql'),
+    getAll:         sql('access-levels/getAll.sql'),
+  },
+  criticisms: {
+    create:         sql('criticisms/create.sql'),
+    drop:           sql('criticisms/drop.sql'),
+    getByCreatorId: sql('criticisms/getByCreatorId.sql'),
+  },
   db: {
     create:         sql('db/create.sql'),
     drop:           sql('db/drop.sql'),
     test:           sql('db/test.sql'),
   },
+  organ_parts: {
+    create:         sql('organ_parts/create.sql'),
+    drop:           sql('organ_parts/drop.sql'),
+  },
+  rank_criticisms: {
+    create:         sql('rank-criticisms/create.sql'),
+    drop:           sql('rank-criticisms/drop.sql'),
+  },
+  rank_replies: {
+    create:         sql('rank_replies/create.sql'),
+    drop:           sql('rank_replies/drop.sql'),
+  },
+  replies: {
+    create:         sql('replies/create.sql'),
+    drop:           sql('replies/drop.sql'),
+  },
+  subjects: {
+    create:         sql('subjects/create.sql'),
+    drop:           sql('subjects/drop.sql'),
+  },
+  tags: {
+    create:         sql('tags/create.sql'),
+    drop:           sql('tags/drop.sql'),
+    getAll:         sql('tags/getAll.sql'),
+  },
+  tags_criticisms: {
+    create:         sql('tags-criticisms/create.sql'),
+    drop:           sql('tags-criticisms/drop.sql'),
+    getAll:         sql('tags-criticisms/getAll.sql'),
+  },
   users: {
     create:         sql('users/create.sql'),
     drop:           sql('users/drop.sql'),
     getByUsername:  sql('users/get.sql'),
+    getTopTen:      sql('users/getTopTen.sql'),
     select:         sql('users/select.sql'),
   },
 };
