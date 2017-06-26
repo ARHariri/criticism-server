@@ -5,6 +5,6 @@ CREATE TABLE users(
     password varchar(256) not null,
     email varchar(50) unique,
     pk varchar(60) not null unique,
-    access_level integer not null,
+    access_level varchar(20) not null references access_levels(name),
     rank integer not null default 0
 )

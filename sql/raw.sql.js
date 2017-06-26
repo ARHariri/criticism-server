@@ -35,6 +35,7 @@ module.exports = {
   organ_parts: {
     create:         sql('organ-parts/create.sql'),
     drop:           sql('organ-parts/drop.sql'),
+    getAll:         sql('organ-parts/getAll.sql'),
   },
   rank_criticisms: {
     create:         sql('rank-criticisms/create.sql'),
@@ -65,7 +66,7 @@ module.exports = {
   users: {
     create:         sql('users/create.sql'),
     drop:           sql('users/drop.sql'),
-    getByUsername:  sql('users/get.sql'),
+    getByUsername:  sql('users/getByUsername.sql'),
     getTopTen:      sql('users/getTopTen.sql'),
     select:         sql('users/select.sql'),
   },

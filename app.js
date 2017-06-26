@@ -5,6 +5,7 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let jwt = require('jsonwebtoken');
+let env = require('./env');
 
 let index = require('./routes/index');
 let api   = require('./routes/api');
@@ -28,16 +29,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Authentication handler
 app.use(function (req, res, next) {
-  let username = req.headers.username;
-  let token = req.headers.token;
-  
+  let username = req.cookies.criticism_username;
+  let token = req.cookies.token;
+
   if((username === undefined || token === undefined) || (username === null || token === null)){
     req.user = null;
     next();
   }
   else{
     let user = lib.helpers.isTestReq(req) ? undefined : app.locals.userMap.get(username);
-    
+
     //Check user from map
     if(user !== undefined){
       //The user is on map
@@ -56,39 +57,40 @@ app.use(function (req, res, next) {
     else{
       //Should load user from database
       let curSql = lib.helpers.isTestReq(req) ? sql.test : sql;
-      
+
       curSql.users.getByUsername({username: username})
         .then((res) => {
           if(res.length === 0)
             req.user = null;
           else{
             //Check JWT
-            let password = jwt.verify(token, res[0].pk);
-            if(password === token){
+            let u = jwt.verify(token, res[0].pk);
+
+            if(u === username){
               user = {
                 uid: res[0].uid,
                 name: res[0].name,
                 username: res[0].username,
                 password: res[0].password,
                 email: res[0].email,
-                token: res[0].token,
+                token: token,
                 access_level: res[0].access_level,
                 rank: res[0].rank,
                 timeOut: 600000
               };
-              user.destroy = setTimeout(function(){
+              user.destroy = setTimeout(function () {
                 app.locals.userMap.delete(username);
               }, user.timeOut);
-  
+
               app.locals.userMap.set(username, user);
-  
+
               req.user = user;
             }
             else
               req.user = null;
+
+            next();
           }
-  
-          next();
         })
         .catch((err) => {
           res.status(404)

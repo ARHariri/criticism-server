@@ -57,7 +57,20 @@ router.post('/login', apiResponse('User', 'login', false, ['body.username', 'bod
 router.put('/user', apiResponse('User', 'insert', false, ['body']));
 router.delete('/user/:id', apiResponse('User', 'delete', true, ['params.id']));
 router.post('/user/:id', apiResponse('User', 'update', true, ['params.id', 'body']));
-// router.get('/user', apiResponse('User', 'select', true));
+router.post('/isLoggedIn', apiResponse('User', 'checkLogin', true, ['user.username', 'user.password']));
+router.get('/user/top', apiResponse('User', 'getTopPeople', false));
+router.get('/user', apiResponse('User', 'select', true));
 
+
+//Organ API
+router.get('/organ/accessLevel', apiResponse('Organ', 'getAccessLevels', true));
+router.get('/organ/part', apiResponse('Organ', 'getParts', true));
+router.put('/organ/part', apiResponse('Organ', 'saveOrgan', true, ['body']));
+
+
+//Criticism API
+router.get('/criticism/subject', apiResponse('Criticism', 'getSubjects', true));
+router.put('/criticism', apiResponse('Criticism', 'saveCriticism', true, ['user.uid', 'body']));
+router.post('/criticism', apiResponse('Criticism', 'saveCriticism', true, ['user.uid', 'body', 'body.cid']));
 
 module.exports = router;

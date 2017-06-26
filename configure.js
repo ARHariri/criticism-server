@@ -33,10 +33,10 @@ function createOrExist(tableName) {
 
 function prodTablesCreate() {
   return new Promise((resolve, reject) => {
-    createOrExist('users')
+    createOrExist('access_levels')
+      .then((res) => createOrExist('users'))
       .then((res) => createOrExist('subjects'))
       .then((res) => createOrExist('criticisms'))
-      .then((res) => createOrExist('access_levels'))
       .then((res) => createOrExist('organ_parts'))
       .then((res) => createOrExist('tags'))
       .then((res) => createOrExist('replies'))
@@ -59,7 +59,7 @@ function adminRowCreate() {
       username: 'admin',
       password: 'admin',
       email: 'admin@admin.com',
-      access_level: 10,
+      access_level: 'مدیر',
       rank: 0
     };
 
