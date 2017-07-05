@@ -1,4 +1,4 @@
 create table subjects(
     sid serial not null primary key,
-    name varchar(20) unique not null
+    name varchar(255) unique not null
 )

@@ -1,0 +1,1 @@
+drop table thank_replies

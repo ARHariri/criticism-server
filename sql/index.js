@@ -100,7 +100,7 @@ let tablesWithSqlCreatedByHelpers = [
     update: true,
     select: true,
     delete: true,
-    idColumn: 'rid',
+    idColumn: 'cid',
   },
   {
     name: 'rank_replies',
@@ -108,7 +108,7 @@ let tablesWithSqlCreatedByHelpers = [
     update: true,
     select: true,
     delete: true,
-    // idColumn: 'rid',
+    idColumn: 'rid',
   },
   {
     name: 'replies',
@@ -141,6 +141,14 @@ let tablesWithSqlCreatedByHelpers = [
     select: false,
     delete: true,
     // idColumn: 'cid_tid',
+  },
+  {
+    name: 'thank_replies',
+    insert: true,
+    update: true,
+    select: true,
+    delete: true,
+    idColumn: 'rid',
   },
   {
     name: 'users',

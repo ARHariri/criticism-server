@@ -43,6 +43,7 @@ function prodTablesCreate() {
       .then((res) => createOrExist('rank_replies'))
       .then((res) => createOrExist('rank_criticisms'))
       .then((res) => createOrExist('tags_criticisms'))
+      .then((res) => createOrExist('thank_replies'))
       .then((res) => adminRowCreate())
       .catch((err) => {
         reject(err);
