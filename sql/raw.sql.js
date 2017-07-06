@@ -86,7 +86,7 @@ module.exports = {
     create:         sql('users/create.sql'),
     drop:           sql('users/drop.sql'),
     getByUsername:  sql('users/getByUsername.sql'),
-    getTopTen:      sql('users/getTopTen.sql'),
+    getTops:        sql('users/getTops.sql'),
     select:         sql('users/select.sql'),
   },
 };

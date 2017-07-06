@@ -9,4 +9,4 @@ join (select criticisms.creator_id,
       left outer join replies on criticisms.cid = replies.criticism_id
       group by criticisms.creator_id) as ranked on users.uid = ranked.creator_id
 order by ranked.rank DESC, ranked.is_backward ASC, ranked.replies_rank DESC, ranked.replies_thanks_number DESC
-limit 10
+limit 9
