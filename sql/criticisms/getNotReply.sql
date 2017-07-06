@@ -6,6 +6,7 @@ select
     criticisms.rank,
     criticisms.is_backward,
     criticisms.backward_reason,
+    criticisms.is_reject,
     string_agg(tags.name, '-') as tags,
     cparent.subject as parent_criticism,
     cparent.cid as parent_cid,
@@ -19,6 +20,6 @@ join users on criticisms.creator_id = users.uid
 join organ_parts on criticisms.part = organ_parts.oid
 left outer join tags_criticisms on tags_criticisms.cid = criticisms.cid
 left outer join tags on tags.tid = tags_criticisms.tid
-where organ_parts.responsible_id = ${uid} and criticisms.cid not in (select criticism_id from replies)
-group by criticisms.cid, criticisms.subject, criticisms.backward_reason, cparent.cid, cparent.subject, organ_parts.name, users.name, users.username, users.rank
+where organ_parts.responsible_id = ${uid} and criticisms.cid not in (select criticism_id from replies) and criticisms.is_backward = false
+group by criticisms.cid, cparent.cid, cparent.subject, organ_parts.name, users.name, users.username, users.rank
 order by creation_date

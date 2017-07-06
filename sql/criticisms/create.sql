@@ -7,6 +7,7 @@ CREATE TABLE criticisms(
     part integer not null references organ_parts(oid),
     rank smallint not null default 0,
     is_backward boolean default false,
+    is_reject boolean not null default false,
     backward_reason text,
     parent integer
 );
