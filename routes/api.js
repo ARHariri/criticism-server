@@ -70,19 +70,18 @@ router.put('/organ/part', apiResponse('Organ', 'saveOrgan', true, ['body']));
 
 //Criticism API
 router.get('/criticism/subject', apiResponse('Criticism', 'getSubjects', true));
-router.get('/criticism', apiResponse('Criticism', 'getCriticisms', true));
+router.get('/criticism', apiResponse('Criticism', 'getCriticisms', false));
 router.get('/criticism/user', apiResponse('Criticism', 'getMyCriticisms', true, ['user.uid']));
 router.get('/criticism/best', apiResponse('Criticism', 'getTheBest', false));
 router.put('/criticism', apiResponse('Criticism', 'saveCriticism', true, ['user.uid', 'body']));
 router.post('/criticism', apiResponse('Criticism', 'saveCriticism', true, ['user.uid', 'body', 'body.cid']));
 router.post('/criticism/vote/:cid', apiResponse('Criticism', 'votingCriticism', true, ['params.cid', 'body.value', 'user.uid']));
 router.post('/criticism/backward/:cid', apiResponse('Criticism', 'backwardCriticism', true, ['body', 'params.cid', 'user.uid']));
-router.post('/criticism/similar', apiResponse('Criticism', ''));
 
 //Replies API
 router.get('/criticism/notreply', apiResponse('User', 'getNotifications', true, ['user.uid']));
 router.put('/reply', apiResponse('Criticism', 'saveReply', true, ['body', 'user.uid']));
-router.get('/reply/:cid', apiResponse('Criticism', 'getReplies', true, ['params.cid']));
+router.get('/reply/:cid', apiResponse('Criticism', 'getReplies', false, ['params.cid']));
 router.post('/reply/vote/:rid', apiResponse('Criticism', 'votingReply', true, ['params.rid', 'body.value', 'user.uid']));
 router.post('/reply/thank/:rid', apiResponse('Criticism', 'thankReply', true, ['params.rid', 'body.value', 'user.uid']));
 

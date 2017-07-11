@@ -20,7 +20,7 @@ join users on criticisms.creator_id = users.uid
 join organ_parts on criticisms.part = organ_parts.oid
 left outer join tags_criticisms on tags_criticisms.cid = criticisms.cid
 left outer join tags on tags.tid = tags_criticisms.tid
-where criticisms.is_reject = false
+where criticisms.is_reject = false and criticisms.is_backward = false
 group by criticisms.cid, cparent.cid, cparent.subject, organ_parts.name, users.name, users.username, users.rank
 order by criticisms.rank DESC, criticisms.creation_date DESC
 limit 100

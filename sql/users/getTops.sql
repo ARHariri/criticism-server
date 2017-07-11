@@ -1,7 +1,7 @@
 select users.*, ranked.rank, ranked.is_backward
 from users
 join (select criticisms.creator_id,
-             sum(criticisms.rank) as rank,
+             sum(case when criticisms.is_reject = false then criticisms.rank else 0 end) as rank,
              sum(case when criticisms.is_backward = true then 1 else 0 end) as is_backward,
              sum(replies.rank) as replies_rank,
              sum(replies.thanks_number) as replies_thanks_number,
